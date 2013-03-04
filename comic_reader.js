@@ -95,7 +95,7 @@
     };
 
     ComicReader.prototype.render = function() {
-      return this.$el.html("<div class='comic-page-wrap'></div>");
+      return this.$el.html(" <table class='comic-page-table' width=\"100%\" height=\"100%\" align=\"center\" valign=\"center\">\n  <tr>\n    <td class='comic-page-wrap'></td>\n  </tr>\n</table>");
     };
 
     ComicReader.prototype.onKeyPress = function(e) {

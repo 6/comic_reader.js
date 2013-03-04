@@ -31,7 +31,11 @@ class @ComicReader extends Backbone.View
 
   render: =>
     @$el.html("""
-      <div class='comic-page-wrap'></div>
+       <table class='comic-page-table' width="100%" height="100%" align="center" valign="center">
+        <tr>
+          <td class='comic-page-wrap'></td>
+        </tr>
+      </table>
     """)
 
   onKeyPress: (e) =>
