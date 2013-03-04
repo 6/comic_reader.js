@@ -32,6 +32,8 @@
       width: 100%;
       height: 100%;
       background: #333;
+      font: 100% "lucida grande",tahoma,verdana,arial,sans-serif;
+      color: #eee;
     }
     #comic-reader {
       height: 100%;
@@ -42,8 +44,16 @@
     }
     .comic-page-wrap {
       height: 100%;
+      position: relative;
     }
-    .comic-page {
+    .comic-meta-wrap {
+      position: absolute;
+      padding: 20px 28px;
+    }
+    .comic-meta-wrap .page-index {
+      font-size: 28px;
+    }
+    .comic-image {
       display: block;
       margin: 0 auto;
       cursor: pointer;
