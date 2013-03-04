@@ -165,7 +165,8 @@
     ComicReader.prototype.showPage = function(pageIndex) {
       var page;
       page = this.pages.at(pageIndex);
-      return this.$el.find(".comic-image-wrap").hide(0).html("<img class='comic-image' src='" + (page.get('url')) + "'>").fadeIn(30);
+      this.$el.find(".comic-image-wrap").hide(0).html("<img class='comic-image' src='" + (page.get('url')) + "'>").fadeIn(30);
+      return $(document).scrollTop(0);
     };
 
     ComicReader.prototype.nextPage = function() {
