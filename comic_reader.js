@@ -127,19 +127,17 @@
     };
 
     ComicReader.prototype.initialize = function(options) {
-      var modelAttributes,
-        _this = this;
+      var _this = this;
       if (options == null) {
         options = {};
       }
       $(document).on("keyup", this.onKeyPress);
-      modelAttributes = _.map(options.urls || [], function(url) {
+      this.pages = new ComicPages(_.map(options.urls || [], function(url) {
         return {
           url: url,
           fetched: false
         };
-      });
-      this.pages = new ComicPages(modelAttributes);
+      }));
       this.pages.on('change:page', this.showPage);
       this.render();
       this.metaView = new ComicMetaView({

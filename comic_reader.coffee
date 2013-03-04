@@ -47,10 +47,7 @@ class @ComicReader extends Backbone.View
 
   initialize: (options = {}) =>
     $(document).on "keyup", @onKeyPress
-
-    modelAttributes = _.map options.urls || [], (url) =>
-      {url: url, fetched: false}
-    @pages = new ComicPages(modelAttributes)
+    @pages = new ComicPages(_.map(options.urls || [], (url) => {url: url, fetched: false}))
     @pages.on 'change:page', @showPage
     @render()
     @metaView = new ComicMetaView(el: ".comic-meta-wrap", pages: @pages)
