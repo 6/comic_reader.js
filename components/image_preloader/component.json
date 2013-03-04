@@ -1,0 +1,14 @@
+{
+  "name": "image_preloader",
+  "description": "Simple javascript image preloader",
+  "version": "1.0.1",
+  "main": "image_preloader.js",
+  "gitHead": "14cb45b6754b0eae34f664879e603aa85730c7cd",
+  "readme": "Simple javascript class for preloading images.\n\n## Usage\n\n```javascript\nvar preloader = new ImagePreloader({\n  urls: ['array', 'of', 'image', 'urls'], // URLs can be relative or absolute\n  imageLoad: function(imageDetails) { ... },\n  complete: function(imageUrls) { ... }\n});\npreloader.start();\n```\n\nThe optional callbacks are:\n\n#### `imageLoad`\n\nFired when an image finishes loading. Provides an `imageDetails` hash containing:\n\n```javascript\n{\n  url: 'url-of-image',\n  loadedCount: 2, // how many images have been loaded so far\n  totalCount: 4, // total image count\n  abort: false, // true if image load was aborted\n  error: false // true if image load encountered error\n}\n```\n\n#### `complete`\n\nFired when all images have finished loading. Provides an array of the image URLs.\n\n## Example\n\nhttp://6.github.com/image_preloader.js/example.html\n\n## Credits\n\nLoosely based off image preloader gist by eikes: [https://gist.github.com/eikes/3925183](https://gist.github.com/eikes/3925183)\n",
+  "readmeFilename": "README.md",
+  "_id": "image_preloader@1.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/6/image_preloader.js"
+  }
+}

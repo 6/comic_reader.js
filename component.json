@@ -1,0 +1,10 @@
+{
+  "name": "comic_reader",
+  "version": "1.0.0",
+  "dependencies": {
+    "jquery": "1.9.1",
+    "image_preloader": "1.0.1",
+    "underscore": "1.4.4.",
+    "backbone": "0.9.10"
+  }
+}
