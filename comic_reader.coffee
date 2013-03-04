@@ -76,7 +76,7 @@ class @ComicReader extends Backbone.View
     page = @pages.at(pageIndex)
     @$el.find(".comic-image-wrap").hide(0).html("""
         <img class='comic-image' src='#{page.get('url')}'>
-      """).fadeIn(30)
+      """).fadeIn(50)
     $(document).scrollTop(0)
 
   nextPage: =>
