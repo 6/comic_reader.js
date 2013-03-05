@@ -37,8 +37,12 @@ class ComicMetaView extends Backbone.View
 
   render: =>
     @$el.html("""
-      <div class='page-index'>#{@pages.currentPageIndex + 1} of #{@pages.length}</div>
-      <div class='progress'>Loaded #{@pages.percentFetched()}%</div>
+      <div class='progress'>
+        <div class='progress-inner' style='width:#{@pages.percentFetched()}%'></div>
+      </div>
+      <nav>
+        <div class='page-index'>#{@pages.currentPageIndex + 1} of #{@pages.length}</div>
+      </nav>
     """)
 
 class @ComicReader extends Backbone.View

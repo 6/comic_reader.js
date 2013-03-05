@@ -101,7 +101,7 @@
     };
 
     ComicMetaView.prototype.render = function() {
-      return this.$el.html("<div class='page-index'>" + (this.pages.currentPageIndex + 1) + " of " + this.pages.length + "</div>\n<div class='progress'>Loaded " + (this.pages.percentFetched()) + "%</div>");
+      return this.$el.html("<div class='progress'>\n  <div class='progress-inner' style='width:" + (this.pages.percentFetched()) + "%'></div>\n</div>\n<nav>\n  <div class='page-index'>" + (this.pages.currentPageIndex + 1) + " of " + this.pages.length + "</div>\n</nav>");
     };
 
     return ComicMetaView;
