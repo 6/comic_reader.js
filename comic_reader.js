@@ -149,7 +149,7 @@
     };
 
     ComicReader.prototype.render = function() {
-      return this.$el.html(" <table class='comic-page-table' width=\"100%\" height=\"100%\" align=\"center\" valign=\"center\">\n  <tr>\n    <td class='comic-page-wrap'>\n      <div class='comic-meta-wrap'></div>\n      <div class='comic-image-wrap'></div>\n    </td>\n  </tr>\n</table>");
+      return this.$el.html("<div class='comic-meta-wrap'></div>\n<div class='comic-image-wrap'></div>");
     };
 
     ComicReader.prototype.onKeyPress = function(e) {
