@@ -1,4 +1,4 @@
-class ComicPage extends Backbone.Model
+class Page extends Backbone.Model
   fetch: =>
     preloader = new ImagePreloader
       urls: [@get('url')]
@@ -8,8 +8,8 @@ class ComicPage extends Backbone.Model
   onImageLoad: =>
     @set('fetched', true)
 
-class ComicPages extends Backbone.Collection
-  model: ComicPage
+class Pages extends Backbone.Collection
+  model: Page
 
   initialize: =>
     @currentPageIndex = 0
@@ -47,7 +47,7 @@ class @ComicReader extends Backbone.View
 
   initialize: (options = {}) =>
     $(document).on "keyup", @onKeyPress
-    @pages = new ComicPages(_.map(options.urls || [], (url) => {url: url, fetched: false}))
+    @pages = new Pages(_.map(options.urls || [], (url) => {url: url, fetched: false}))
     @pages.on 'change:page', @showPage
     @render()
     @metaView = new ComicMetaView(el: ".comic-meta-wrap", pages: @pages)
