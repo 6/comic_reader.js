@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #333;
+  font: 100% "lucida grande",tahoma,verdana,arial,sans-serif;
+  color: #ddd;
+}
+#comic-reader {
+  height: 100%;
+}
+.comic-meta-wrap {
+  background: #777;
+}
+.comic-meta-wrap .progress {
+  height: 4px;
+  background: #999;
+}
+.comic-meta-wrap .progress-inner {
+  height: 4px;
+  background: rgb(227, 190, 255);
+}
+.comic-meta-wrap nav {
+  padding: 8px 12px;
+  font-size: 16px;
+}
+.comic-image {
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+}
