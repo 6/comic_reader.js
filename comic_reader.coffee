@@ -29,6 +29,12 @@ class Pages extends Backbone.Collection
     @currentPageIndex = pageIndex
     @trigger('change:page', pageIndex)
 
+  hasNextPage: =>
+    @currentPageIndex < @models.length - 1
+
+  hasPreviousPage: =>
+    @currentPageIndex > 0
+
 class ComicMetaView extends Backbone.View
   initialize: (options = {}) =>
     {@pages} = options
@@ -60,11 +66,10 @@ class ComicReaderView extends Backbone.View
 
   showPage: (pageIndex) =>
     page = @pages.at(pageIndex)
-    @$el.find(".comic-image-wrap").hide(0).html("""
-        <a href="#p#{pageIndex + 2}">
-          <img class='comic-image' src='#{page.get('url')}'>
-        </a>
-      """).fadeIn(50)
+    html = "<img class='comic-image' src='#{page.get('url')}'>"
+    if @pages.hasNextPage()
+      html = "<a href='#p#{pageIndex + 2}'>#{html}</a>"
+    @$el.find(".comic-image-wrap").hide(0).html(html).fadeIn(50)
     $(document).scrollTop(0)
 
 class ComicReaderRouter extends Backbone.Router
@@ -94,7 +99,9 @@ class @ComicReader
     $(document).on "keyup", (e) =>
       return  unless e.keyCode in [37, 39]
       if e.keyCode == 37 # left arrow
+        return  unless pages.hasPreviousPage()
         pageDelta = -1
       else if e.keyCode == 39 # right arrow
+        return  unless pages.hasNextPage()
         pageDelta = 1
       window.location.hash = "p#{pages.currentPageIndex + pageDelta + 1}"

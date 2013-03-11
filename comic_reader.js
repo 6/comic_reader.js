@@ -37,6 +37,8 @@
     __extends(Pages, _super);
 
     function Pages() {
+      this.hasPreviousPage = __bind(this.hasPreviousPage, this);
+      this.hasNextPage = __bind(this.hasNextPage, this);
       this.setCurrentPage = __bind(this.setCurrentPage, this);
       this.percentFetched = __bind(this.percentFetched, this);
       this.fetched = __bind(this.fetched, this);
@@ -75,6 +77,14 @@
       }
       this.currentPageIndex = pageIndex;
       return this.trigger('change:page', pageIndex);
+    };
+
+    Pages.prototype.hasNextPage = function() {
+      return this.currentPageIndex < this.models.length - 1;
+    };
+
+    Pages.prototype.hasPreviousPage = function() {
+      return this.currentPageIndex > 0;
     };
 
     return Pages;
@@ -137,9 +147,13 @@
     };
 
     ComicReaderView.prototype.showPage = function(pageIndex) {
-      var page;
+      var html, page;
       page = this.pages.at(pageIndex);
-      this.$el.find(".comic-image-wrap").hide(0).html("<a href=\"#p" + (pageIndex + 2) + "\">\n  <img class='comic-image' src='" + (page.get('url')) + "'>\n</a>").fadeIn(50);
+      html = "<img class='comic-image' src='" + (page.get('url')) + "'>";
+      if (this.pages.hasNextPage()) {
+        html = "<a href='#p" + (pageIndex + 2) + "'>" + html + "</a>";
+      }
+      this.$el.find(".comic-image-wrap").hide(0).html(html).fadeIn(50);
       return $(document).scrollTop(0);
     };
 
@@ -211,8 +225,14 @@
           return;
         }
         if (e.keyCode === 37) {
+          if (!pages.hasPreviousPage()) {
+            return;
+          }
           pageDelta = -1;
         } else if (e.keyCode === 39) {
+          if (!pages.hasNextPage()) {
+            return;
+          }
           pageDelta = 1;
         }
         return window.location.hash = "p" + (pages.currentPageIndex + pageDelta + 1);
