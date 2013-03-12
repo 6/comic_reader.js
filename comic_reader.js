@@ -37,6 +37,7 @@
     __extends(Pages, _super);
 
     function Pages() {
+      this.setSizeTransform = __bind(this.setSizeTransform, this);
       this.hasPreviousPage = __bind(this.hasPreviousPage, this);
       this.hasNextPage = __bind(this.hasNextPage, this);
       this.setCurrentPage = __bind(this.setCurrentPage, this);
@@ -87,6 +88,16 @@
       return this.currentPageIndex > 0;
     };
 
+    Pages.prototype.setSizeTransform = function(type) {
+      var _this = this;
+      this.map(function(model) {
+        return model.set('size_transform', type, {
+          silent: true
+        });
+      });
+      return this.trigger('change:page', this.currentPageIndex);
+    };
+
     return Pages;
 
   })(Backbone.Collection);
@@ -97,9 +108,18 @@
 
     function ComicMetaView() {
       this.render = __bind(this.render, this);
+      this.fullSize = __bind(this.fullSize, this);
+      this.fillHeight = __bind(this.fillHeight, this);
+      this.fillWidth = __bind(this.fillWidth, this);
       this.initialize = __bind(this.initialize, this);
       ComicMetaView.__super__.constructor.apply(this, arguments);
     }
+
+    ComicMetaView.prototype.events = {
+      'click .fill-width': 'fillWidth',
+      'click .fill-height': 'fillHeight',
+      'click .full-size': 'fullSize'
+    };
 
     ComicMetaView.prototype.initialize = function(options) {
       if (options == null) {
@@ -110,8 +130,20 @@
       return this.pages.on('change:page', this.render);
     };
 
+    ComicMetaView.prototype.fillWidth = function() {
+      return this.pages.setSizeTransform("fillWidth");
+    };
+
+    ComicMetaView.prototype.fillHeight = function() {
+      return this.pages.setSizeTransform("fillHeight");
+    };
+
+    ComicMetaView.prototype.fullSize = function() {
+      return this.pages.setSizeTransform(null);
+    };
+
     ComicMetaView.prototype.render = function() {
-      return this.$el.html("<div class='progress'>\n  <div class='progress-inner' style='width:" + (this.pages.percentFetched()) + "%'></div>\n</div>\n<nav>\n  <div class='page-index'>" + (this.pages.currentPageIndex + 1) + " of " + this.pages.length + "</div>\n</nav>");
+      return this.$el.html("<div class='progress'>\n  <div class='progress-inner' style='width:" + (this.pages.percentFetched()) + "%'></div>\n</div>\n<nav class='clearfix'>\n  <div class='page-index'>" + (this.pages.currentPageIndex + 1) + " of " + this.pages.length + "</div>\n  <div class='page-size'>\n    <button class='fill-width'>Fill width &#8596;</button>\n    <button class='full-size'>Full size</button>\n    <button class='fill-height'>Fill height &#8597;</button>\n    </div>\n</nav>");
     };
 
     return ComicMetaView;
@@ -147,9 +179,15 @@
     };
 
     ComicReaderView.prototype.showPage = function(pageIndex) {
-      var html, page;
+      var html, page, style;
       page = this.pages.at(pageIndex);
-      html = "<img class='comic-image' src='" + (page.get('url')) + "'>";
+      style = "";
+      if (page.get('size_transform') === "fillWidth") {
+        style = "width:100%";
+      } else if (page.get('size_transform') === "fillHeight") {
+        style = "height:100%";
+      }
+      html = "<img class='comic-image' src='" + (page.get('url')) + "' style='" + style + "'>";
       if (this.pages.hasNextPage()) {
         html = "<a href='#p" + (pageIndex + 2) + "'>" + html + "</a>";
       }

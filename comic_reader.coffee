@@ -35,19 +35,42 @@ class Pages extends Backbone.Collection
   hasPreviousPage: =>
     @currentPageIndex > 0
 
+  setSizeTransform: (type) =>
+    @map (model) => model.set('size_transform', type, silent: true)
+    @trigger('change:page', @currentPageIndex)
+
 class ComicMetaView extends Backbone.View
+  events:
+    'click .fill-width': 'fillWidth'
+    'click .fill-height': 'fillHeight'
+    'click .full-size': 'fullSize'
+
   initialize: (options = {}) =>
     {@pages} = options
     @pages.on 'change:fetched', @render
     @pages.on 'change:page', @render
+
+  fillWidth: =>
+    @pages.setSizeTransform("fillWidth")
+
+  fillHeight: =>
+    @pages.setSizeTransform("fillHeight")
+
+  fullSize: =>
+    @pages.setSizeTransform(null)
 
   render: =>
     @$el.html("""
       <div class='progress'>
         <div class='progress-inner' style='width:#{@pages.percentFetched()}%'></div>
       </div>
-      <nav>
+      <nav class='clearfix'>
         <div class='page-index'>#{@pages.currentPageIndex + 1} of #{@pages.length}</div>
+        <div class='page-size'>
+          <button class='fill-width'>Fill width &#8596;</button>
+          <button class='full-size'>Full size</button>
+          <button class='fill-height'>Fill height &#8597;</button>
+          </div>
       </nav>
     """)
 
@@ -66,7 +89,14 @@ class ComicReaderView extends Backbone.View
 
   showPage: (pageIndex) =>
     page = @pages.at(pageIndex)
-    html = "<img class='comic-image' src='#{page.get('url')}'>"
+
+    style = ""
+    if page.get('size_transform') == "fillWidth"
+      style = "width:100%"
+    else if page.get('size_transform') == "fillHeight"
+      style = "height:100%"
+
+    html = "<img class='comic-image' src='#{page.get('url')}' style='#{style}'>"
     if @pages.hasNextPage()
       html = "<a href='#p#{pageIndex + 2}'>#{html}</a>"
     @$el.find(".comic-image-wrap").hide(0).html(html).fadeIn(50)
