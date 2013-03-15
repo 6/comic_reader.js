@@ -150,7 +150,7 @@
     };
 
     ComicMetaView.prototype.render = function() {
-      return this.$el.html("<div class='progress'>\n  <div class='progress-indicator' style='" + (this.progressIndicatorStyle()) + "'></div>\n  <div class='progress-inner' style='width:" + (this.pages.percentFetched()) + "%'></div>\n</div>\n<nav class='clearfix'>\n  <div class='page-index'>" + (this.pages.currentPageIndex + 1) + " of " + this.pages.length + "</div>\n  <div class='page-size'>\n    <button class='fill-width'>Fill width &#8596;</button>\n    <button class='full-size'>Full size</button>\n    <button class='fill-height'>Fill height &#8597;</button>\n    </div>\n</nav>");
+      return this.$el.html("<div class='progress'>\n  <div class='progress-indicator' style='" + (this.progressIndicatorStyle()) + "'></div>\n  <div class='progress-inner' style='width:" + (this.pages.percentFetched()) + "%'></div>\n</div>\n<nav class='clearfix'>\n  <div class='page-index'>" + (this.pages.currentPageIndex + 1) + " of " + this.pages.length + "</div>\n  <div class='page-size'>\n    <button class='fill-width'>Fill width &#8596;</button>\n    <button class='full-size'>Full size</button>\n    <button class='fill-height'>Fill height &#8597;</button>\n  </div>\n</nav>");
     };
 
     return ComicMetaView;

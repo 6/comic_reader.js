@@ -75,7 +75,7 @@ class ComicMetaView extends Backbone.View
           <button class='fill-width'>Fill width &#8596;</button>
           <button class='full-size'>Full size</button>
           <button class='fill-height'>Fill height &#8597;</button>
-          </div>
+        </div>
       </nav>
     """)
 
