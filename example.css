@@ -23,10 +23,16 @@ html, body {
 .comic-meta-wrap .progress {
   height: 4px;
   background: #999;
+  position: relative;
 }
 .comic-meta-wrap .progress-inner {
   height: 4px;
   background: rgb(227, 190, 255);
+}
+.comic-meta-wrap .progress-indicator {
+  height: 4px;
+  position: absolute;
+  background: rgb(180, 0, 123);
 }
 .comic-meta-wrap nav {
   padding: 8px 12px;

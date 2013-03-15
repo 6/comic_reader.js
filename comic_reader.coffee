@@ -59,9 +59,14 @@ class ComicMetaView extends Backbone.View
   fullSize: =>
     @pages.setSizeTransform(null)
 
+  progressIndicatorStyle: =>
+    width = 100 / @pages.size()
+    "width:#{width}%;left:#{width * @pages.currentPageIndex}%;"
+
   render: =>
     @$el.html("""
       <div class='progress'>
+        <div class='progress-indicator' style='#{@progressIndicatorStyle()}'></div>
         <div class='progress-inner' style='width:#{@pages.percentFetched()}%'></div>
       </div>
       <nav class='clearfix'>

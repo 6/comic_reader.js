@@ -108,6 +108,7 @@
 
     function ComicMetaView() {
       this.render = __bind(this.render, this);
+      this.progressIndicatorStyle = __bind(this.progressIndicatorStyle, this);
       this.fullSize = __bind(this.fullSize, this);
       this.fillHeight = __bind(this.fillHeight, this);
       this.fillWidth = __bind(this.fillWidth, this);
@@ -142,8 +143,14 @@
       return this.pages.setSizeTransform(null);
     };
 
+    ComicMetaView.prototype.progressIndicatorStyle = function() {
+      var width;
+      width = 100 / this.pages.size();
+      return "width:" + width + "%;left:" + (width * this.pages.currentPageIndex) + "%;";
+    };
+
     ComicMetaView.prototype.render = function() {
-      return this.$el.html("<div class='progress'>\n  <div class='progress-inner' style='width:" + (this.pages.percentFetched()) + "%'></div>\n</div>\n<nav class='clearfix'>\n  <div class='page-index'>" + (this.pages.currentPageIndex + 1) + " of " + this.pages.length + "</div>\n  <div class='page-size'>\n    <button class='fill-width'>Fill width &#8596;</button>\n    <button class='full-size'>Full size</button>\n    <button class='fill-height'>Fill height &#8597;</button>\n    </div>\n</nav>");
+      return this.$el.html("<div class='progress'>\n  <div class='progress-indicator' style='" + (this.progressIndicatorStyle()) + "'></div>\n  <div class='progress-inner' style='width:" + (this.pages.percentFetched()) + "%'></div>\n</div>\n<nav class='clearfix'>\n  <div class='page-index'>" + (this.pages.currentPageIndex + 1) + " of " + this.pages.length + "</div>\n  <div class='page-size'>\n    <button class='fill-width'>Fill width &#8596;</button>\n    <button class='full-size'>Full size</button>\n    <button class='fill-height'>Fill height &#8597;</button>\n    </div>\n</nav>");
     };
 
     return ComicMetaView;
