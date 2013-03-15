@@ -27,12 +27,12 @@ html, body {
 }
 .comic-meta-wrap .progress-inner {
   height: 4px;
-  background: rgb(227, 190, 255);
+  background: rgb(190, 221, 255);
 }
 .comic-meta-wrap .progress-indicator {
   height: 4px;
   position: absolute;
-  background: rgb(180, 0, 123);
+  background: rgb(100, 181, 255);
 }
 .comic-meta-wrap nav {
   padding: 8px 12px;
