@@ -35,7 +35,7 @@ html, body {
   background: rgb(100, 181, 255);
 }
 .comic-meta-wrap nav {
-  padding: 8px 12px;
+  padding: 8px 20px;
   font-size: 16px;
 }
 .comic-meta-wrap .page-index {
@@ -44,6 +44,15 @@ html, body {
 .comic-meta-wrap .page-size {
   float: left;
   padding: 0 20px;
+}
+.comic-meta-wrap .page-controls {
+  float: right;
+}
+.comic-meta-wrap .page-controls a {
+  color: #cef;
+}
+.comic-meta-wrap .page-controls a:hover {
+  color: #fff;
 }
 .comic-image {
   display: block;

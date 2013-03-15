@@ -64,6 +64,8 @@ class ComicMetaView extends Backbone.View
     "width:#{width}%;left:#{width * @pages.currentPageIndex}%;"
 
   render: =>
+    page = @pages.at(@pages.currentPageIndex)
+
     @$el.html("""
       <div class='progress'>
         <div class='progress-indicator' style='#{@progressIndicatorStyle()}'></div>
@@ -75,6 +77,9 @@ class ComicMetaView extends Backbone.View
           <button class='fill-width'>Fill width &#8596;</button>
           <button class='full-size'>Full size</button>
           <button class='fill-height'>Fill height &#8597;</button>
+        </div>
+        <div class='page-controls'>
+          <a class='icon-download-alt' target='_blank' href='#{page.get('url')}'></a>
         </div>
       </nav>
     """)
