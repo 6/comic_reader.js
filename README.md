@@ -2,4 +2,4 @@ Work in progress.
 
 ### Example
 
-http://6.github.com/comic_reader.js/example.html
+http://6.github.io/comic_reader.js/example.html
