@@ -116,6 +116,8 @@
       return _ref2;
     }
 
+    ComicMetaView.prototype.el = '.comic-meta-wrap';
+
     ComicMetaView.prototype.events = {
       'click .fill-width': 'fillWidth',
       'click .fill-height': 'fillHeight',
@@ -170,6 +172,8 @@
       return _ref3;
     }
 
+    PageView.prototype.el = '.comic-image-wrap';
+
     PageView.prototype.initialize = function(options) {
       if (options == null) {
         options = {};
@@ -216,7 +220,6 @@
       this.pages.on('change:page', this.showPage);
       this.render();
       return this.metaView = new ComicMetaView({
-        el: ".comic-meta-wrap",
         pages: this.pages
       });
     };
@@ -230,7 +233,6 @@
 
       page = this.pages.at(pageIndex);
       view = new PageView({
-        el: '.comic-image-wrap',
         model: page,
         hasNextPage: this.pages.hasNextPage(),
         pageIndex: pageIndex

@@ -40,6 +40,8 @@ class Pages extends Backbone.Collection
     @trigger('change:page', @currentPageIndex)
 
 class ComicMetaView extends Backbone.View
+  el: '.comic-meta-wrap'
+
   events:
     'click .fill-width': 'fillWidth'
     'click .fill-height': 'fillHeight'
@@ -85,6 +87,8 @@ class ComicMetaView extends Backbone.View
     """)
 
 class PageView extends Backbone.View
+  el: '.comic-image-wrap'
+
   initialize: (options = {}) =>
     {@pageIndex, @hasNextPage} = options
 
@@ -106,7 +110,7 @@ class PagesView extends Backbone.View
     {@pages} = options
     @pages.on 'change:page', @showPage
     @render()
-    @metaView = new ComicMetaView(el: ".comic-meta-wrap", pages: @pages)
+    @metaView = new ComicMetaView(pages: @pages)
 
   render: =>
     @$el.html("""
@@ -116,7 +120,7 @@ class PagesView extends Backbone.View
 
   showPage: (pageIndex) =>
     page = @pages.at(pageIndex)
-    view = new PageView(el: '.comic-image-wrap', model: page, hasNextPage: @pages.hasNextPage(), pageIndex: pageIndex)
+    view = new PageView(model: page, hasNextPage: @pages.hasNextPage(), pageIndex: pageIndex)
     view.render()
 
 class ComicReaderRouter extends Backbone.Router
