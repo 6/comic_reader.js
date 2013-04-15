@@ -71,7 +71,7 @@ class ComicMetaView extends Backbone.View
         <div class='progress-indicator' style='#{@progressIndicatorStyle()}'></div>
         <div class='progress-inner' style='width:#{@pages.percentFetched()}%'></div>
       </div>
-      <nav class='clearfix'>
+      <div class='nav clearfix'>
         <div class='page-index'>#{@pages.currentPageIndex + 1} of #{@pages.length}</div>
         <div class='page-size'>
           <button class='fill-width'>Fill width &#8596;</button>
@@ -81,7 +81,7 @@ class ComicMetaView extends Backbone.View
         <div class='page-controls'>
           <a class='icon-download-alt' target='_blank' href='#{page.get('url')}'></a>
         </div>
-      </nav>
+      </div>
     """)
 
 class ComicReaderView extends Backbone.View

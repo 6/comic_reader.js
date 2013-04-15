@@ -34,7 +34,7 @@ html, body {
   position: absolute;
   background: rgb(100, 181, 255);
 }
-.comic-meta-wrap nav {
+.comic-meta-wrap .nav {
   padding: 8px 20px;
   font-size: 16px;
 }
