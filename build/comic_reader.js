@@ -1,5 +1,5 @@
 (function() {
-  var ComicMetaView, ComicReaderRouter, ComicReaderView, Page, Pages, _ref, _ref1, _ref2, _ref3, _ref4,
+  var ComicMetaView, ComicPageView, ComicReaderRouter, ComicReaderView, Page, Pages, _ref, _ref1, _ref2, _ref3, _ref4, _ref5,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -161,14 +161,51 @@
 
   })(Backbone.View);
 
+  ComicPageView = (function(_super) {
+    __extends(ComicPageView, _super);
+
+    function ComicPageView() {
+      this.render = __bind(this.render, this);
+      this.initialize = __bind(this.initialize, this);      _ref3 = ComicPageView.__super__.constructor.apply(this, arguments);
+      return _ref3;
+    }
+
+    ComicPageView.prototype.initialize = function(options) {
+      if (options == null) {
+        options = {};
+      }
+      return this.pageIndex = options.pageIndex, this.hasNextPage = options.hasNextPage, options;
+    };
+
+    ComicPageView.prototype.render = function() {
+      var html, style;
+
+      style = "";
+      if (this.model.get('size_transform') === "fillWidth") {
+        style = "width:100%";
+      } else if (this.model.get('size_transform') === "fillHeight") {
+        style = "height:100%";
+      }
+      html = "<img class='comic-image' src='" + (this.model.get('url')) + "' style='" + style + "'>";
+      if (this.hasNextPage) {
+        html = "<a href='#p" + (this.pageIndex + 2) + "'>" + html + "</a>";
+      }
+      this.$el.hide(0).html(html).fadeIn(50);
+      return $(document).scrollTop(0);
+    };
+
+    return ComicPageView;
+
+  })(Backbone.View);
+
   ComicReaderView = (function(_super) {
     __extends(ComicReaderView, _super);
 
     function ComicReaderView() {
       this.showPage = __bind(this.showPage, this);
       this.render = __bind(this.render, this);
-      this.initialize = __bind(this.initialize, this);      _ref3 = ComicReaderView.__super__.constructor.apply(this, arguments);
-      return _ref3;
+      this.initialize = __bind(this.initialize, this);      _ref4 = ComicReaderView.__super__.constructor.apply(this, arguments);
+      return _ref4;
     }
 
     ComicReaderView.prototype.initialize = function(options) {
@@ -189,21 +226,16 @@
     };
 
     ComicReaderView.prototype.showPage = function(pageIndex) {
-      var html, page, style;
+      var page, view;
 
       page = this.pages.at(pageIndex);
-      style = "";
-      if (page.get('size_transform') === "fillWidth") {
-        style = "width:100%";
-      } else if (page.get('size_transform') === "fillHeight") {
-        style = "height:100%";
-      }
-      html = "<img class='comic-image' src='" + (page.get('url')) + "' style='" + style + "'>";
-      if (this.pages.hasNextPage()) {
-        html = "<a href='#p" + (pageIndex + 2) + "'>" + html + "</a>";
-      }
-      this.$el.find(".comic-image-wrap").hide(0).html(html).fadeIn(50);
-      return $(document).scrollTop(0);
+      view = new ComicPageView({
+        el: '.comic-image-wrap',
+        model: page,
+        hasNextPage: this.pages.hasNextPage(),
+        pageIndex: pageIndex
+      });
+      return view.render();
     };
 
     return ComicReaderView;
@@ -216,8 +248,8 @@
     function ComicReaderRouter() {
       this["default"] = __bind(this["default"], this);
       this.read = __bind(this.read, this);
-      this.initialize = __bind(this.initialize, this);      _ref4 = ComicReaderRouter.__super__.constructor.apply(this, arguments);
-      return _ref4;
+      this.initialize = __bind(this.initialize, this);      _ref5 = ComicReaderRouter.__super__.constructor.apply(this, arguments);
+      return _ref5;
     }
 
     ComicReaderRouter.prototype.routes = {
@@ -268,9 +300,9 @@
       });
       pages.fetch();
       $(document).on("keyup", function(e) {
-        var pageDelta, _ref5;
+        var pageDelta, _ref6;
 
-        if ((_ref5 = e.keyCode) !== 37 && _ref5 !== 39) {
+        if ((_ref6 = e.keyCode) !== 37 && _ref6 !== 39) {
           return;
         }
         if (e.keyCode === 37) {

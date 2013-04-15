@@ -84,6 +84,23 @@ class ComicMetaView extends Backbone.View
       </div>
     """)
 
+class ComicPageView extends Backbone.View
+  initialize: (options = {}) =>
+    {@pageIndex, @hasNextPage} = options
+
+  render: =>
+    style = ""
+    if @model.get('size_transform') == "fillWidth"
+      style = "width:100%"
+    else if @model.get('size_transform') == "fillHeight"
+      style = "height:100%"
+
+    html = "<img class='comic-image' src='#{@model.get('url')}' style='#{style}'>"
+    if @hasNextPage
+      html = "<a href='#p#{@pageIndex + 2}'>#{html}</a>"
+    @$el.hide(0).html(html).fadeIn(50)
+    $(document).scrollTop(0)
+
 class ComicReaderView extends Backbone.View
   initialize: (options = {}) =>
     {@pages} = options
@@ -99,18 +116,8 @@ class ComicReaderView extends Backbone.View
 
   showPage: (pageIndex) =>
     page = @pages.at(pageIndex)
-
-    style = ""
-    if page.get('size_transform') == "fillWidth"
-      style = "width:100%"
-    else if page.get('size_transform') == "fillHeight"
-      style = "height:100%"
-
-    html = "<img class='comic-image' src='#{page.get('url')}' style='#{style}'>"
-    if @pages.hasNextPage()
-      html = "<a href='#p#{pageIndex + 2}'>#{html}</a>"
-    @$el.find(".comic-image-wrap").hide(0).html(html).fadeIn(50)
-    $(document).scrollTop(0)
+    view = new ComicPageView(el: '.comic-image-wrap', model: page, hasNextPage: @pages.hasNextPage(), pageIndex: pageIndex)
+    view.render()
 
 class ComicReaderRouter extends Backbone.Router
   routes:
