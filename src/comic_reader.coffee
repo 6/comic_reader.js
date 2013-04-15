@@ -84,7 +84,7 @@ class ComicMetaView extends Backbone.View
       </div>
     """)
 
-class ComicPageView extends Backbone.View
+class PageView extends Backbone.View
   initialize: (options = {}) =>
     {@pageIndex, @hasNextPage} = options
 
@@ -101,7 +101,7 @@ class ComicPageView extends Backbone.View
     @$el.hide(0).html(html).fadeIn(50)
     $(document).scrollTop(0)
 
-class ComicReaderView extends Backbone.View
+class PagesView extends Backbone.View
   initialize: (options = {}) =>
     {@pages} = options
     @pages.on 'change:page', @showPage
@@ -116,7 +116,7 @@ class ComicReaderView extends Backbone.View
 
   showPage: (pageIndex) =>
     page = @pages.at(pageIndex)
-    view = new ComicPageView(el: '.comic-image-wrap', model: page, hasNextPage: @pages.hasNextPage(), pageIndex: pageIndex)
+    view = new PageView(el: '.comic-image-wrap', model: page, hasNextPage: @pages.hasNextPage(), pageIndex: pageIndex)
     view.render()
 
 class ComicReaderRouter extends Backbone.Router
@@ -137,7 +137,7 @@ class @ComicReader
   constructor: (options = {}) ->
     pages = new Pages(_.map(options.urls || [], (url) => {url: url, fetched: false}))
     options.pages = pages
-    view = new ComicReaderView(options)
+    view = new PagesView(options)
     router = new ComicReaderRouter(pages: pages)
 
     Backbone.history.start(pushState: false)

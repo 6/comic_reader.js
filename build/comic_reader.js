@@ -1,5 +1,5 @@
 (function() {
-  var ComicMetaView, ComicPageView, ComicReaderRouter, ComicReaderView, Page, Pages, _ref, _ref1, _ref2, _ref3, _ref4, _ref5,
+  var ComicMetaView, ComicReaderRouter, Page, PageView, Pages, PagesView, _ref, _ref1, _ref2, _ref3, _ref4, _ref5,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -161,23 +161,23 @@
 
   })(Backbone.View);
 
-  ComicPageView = (function(_super) {
-    __extends(ComicPageView, _super);
+  PageView = (function(_super) {
+    __extends(PageView, _super);
 
-    function ComicPageView() {
+    function PageView() {
       this.render = __bind(this.render, this);
-      this.initialize = __bind(this.initialize, this);      _ref3 = ComicPageView.__super__.constructor.apply(this, arguments);
+      this.initialize = __bind(this.initialize, this);      _ref3 = PageView.__super__.constructor.apply(this, arguments);
       return _ref3;
     }
 
-    ComicPageView.prototype.initialize = function(options) {
+    PageView.prototype.initialize = function(options) {
       if (options == null) {
         options = {};
       }
       return this.pageIndex = options.pageIndex, this.hasNextPage = options.hasNextPage, options;
     };
 
-    ComicPageView.prototype.render = function() {
+    PageView.prototype.render = function() {
       var html, style;
 
       style = "";
@@ -194,21 +194,21 @@
       return $(document).scrollTop(0);
     };
 
-    return ComicPageView;
+    return PageView;
 
   })(Backbone.View);
 
-  ComicReaderView = (function(_super) {
-    __extends(ComicReaderView, _super);
+  PagesView = (function(_super) {
+    __extends(PagesView, _super);
 
-    function ComicReaderView() {
+    function PagesView() {
       this.showPage = __bind(this.showPage, this);
       this.render = __bind(this.render, this);
-      this.initialize = __bind(this.initialize, this);      _ref4 = ComicReaderView.__super__.constructor.apply(this, arguments);
+      this.initialize = __bind(this.initialize, this);      _ref4 = PagesView.__super__.constructor.apply(this, arguments);
       return _ref4;
     }
 
-    ComicReaderView.prototype.initialize = function(options) {
+    PagesView.prototype.initialize = function(options) {
       if (options == null) {
         options = {};
       }
@@ -221,15 +221,15 @@
       });
     };
 
-    ComicReaderView.prototype.render = function() {
+    PagesView.prototype.render = function() {
       return this.$el.html("<div class='comic-meta-wrap'></div>\n<div class='comic-image-wrap'></div>");
     };
 
-    ComicReaderView.prototype.showPage = function(pageIndex) {
+    PagesView.prototype.showPage = function(pageIndex) {
       var page, view;
 
       page = this.pages.at(pageIndex);
-      view = new ComicPageView({
+      view = new PageView({
         el: '.comic-image-wrap',
         model: page,
         hasNextPage: this.pages.hasNextPage(),
@@ -238,7 +238,7 @@
       return view.render();
     };
 
-    return ComicReaderView;
+    return PagesView;
 
   })(Backbone.View);
 
@@ -291,7 +291,7 @@
         };
       }));
       options.pages = pages;
-      view = new ComicReaderView(options);
+      view = new PagesView(options);
       router = new ComicReaderRouter({
         pages: pages
       });
