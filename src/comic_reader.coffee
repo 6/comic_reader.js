@@ -59,7 +59,7 @@ class ComicMetaView extends Backbone.View
     @pages.setSizeTransform("fillHeight")
 
   fullSize: =>
-    @pages.setSizeTransform(null)
+    @pages.setSizeTransform("fullSize")
 
   progressIndicatorStyle: =>
     width = 100 / @pages.size()

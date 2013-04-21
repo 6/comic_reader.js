@@ -142,7 +142,7 @@
     };
 
     ComicMetaView.prototype.fullSize = function() {
-      return this.pages.setSizeTransform(null);
+      return this.pages.setSizeTransform("fullSize");
     };
 
     ComicMetaView.prototype.progressIndicatorStyle = function() {
