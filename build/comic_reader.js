@@ -194,8 +194,7 @@
       if (this.hasNextPage) {
         html = "<a href='#p" + (this.pageIndex + 2) + "'>" + html + "</a>";
       }
-      this.$el.hide(0).html(html).fadeIn(50);
-      return $(document).scrollTop(0);
+      return this.$el.hide(0).html(html).fadeIn(50);
     };
 
     return PageView;
@@ -237,7 +236,8 @@
         hasNextPage: this.pages.hasNextPage(),
         pageIndex: pageIndex
       });
-      return view.render();
+      view.render();
+      return $(document).scrollTop(0);
     };
 
     return PagesView;

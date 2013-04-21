@@ -103,7 +103,6 @@ class PageView extends Backbone.View
     if @hasNextPage
       html = "<a href='#p#{@pageIndex + 2}'>#{html}</a>"
     @$el.hide(0).html(html).fadeIn(50)
-    $(document).scrollTop(0)
 
 class PagesView extends Backbone.View
   initialize: (options = {}) =>
@@ -122,6 +121,7 @@ class PagesView extends Backbone.View
     page = @pages.at(pageIndex)
     view = new PageView(model: page, hasNextPage: @pages.hasNextPage(), pageIndex: pageIndex)
     view.render()
+    $(document).scrollTop(0)
 
 class ComicReaderRouter extends Backbone.Router
   routes:
