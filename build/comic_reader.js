@@ -13,6 +13,11 @@
       return _ref;
     }
 
+    Page.prototype.defaults = {
+      fetched: false,
+      size_transform: 'fullSize'
+    };
+
     Page.prototype.fetch = function() {
       var preloader;
 

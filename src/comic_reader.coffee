@@ -1,4 +1,8 @@
 class Page extends Backbone.Model
+  defaults:
+    fetched: false
+    size_transform: 'fullSize'
+
   fetch: =>
     preloader = new ImagePreloader
       urls: [@get('url')]
