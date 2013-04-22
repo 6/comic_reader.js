@@ -19,22 +19,18 @@ class Pages extends Backbone.Collection
     @currentPageIndex = 0
 
   fetch: =>
-    _.map @models, (model) => model.fetch()
-
-  fetched: =>
-    _.filter @models, (model) =>
-      model.get('fetched')
+    @map (model) => model.fetch()
 
   percentFetched: =>
-    Math.round(@fetched().length / @size() * 100)
+    Math.round(@where(fetched: true).length / @size() * 100)
 
   setCurrentPage: (pageIndex) =>
-    return  unless pageIndex >= 0 && pageIndex < @models.length
+    return  unless pageIndex >= 0 && pageIndex < @size()
     @currentPageIndex = pageIndex
     @trigger('change:page', pageIndex)
 
   hasNextPage: =>
-    @currentPageIndex < @models.length - 1
+    @currentPageIndex < @size() - 1
 
   hasPreviousPage: =>
     @currentPageIndex > 0

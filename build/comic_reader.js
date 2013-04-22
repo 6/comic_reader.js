@@ -45,7 +45,6 @@
       this.hasNextPage = __bind(this.hasNextPage, this);
       this.setCurrentPage = __bind(this.setCurrentPage, this);
       this.percentFetched = __bind(this.percentFetched, this);
-      this.fetched = __bind(this.fetched, this);
       this.fetch = __bind(this.fetch, this);
       this.initialize = __bind(this.initialize, this);      _ref1 = Pages.__super__.constructor.apply(this, arguments);
       return _ref1;
@@ -60,25 +59,19 @@
     Pages.prototype.fetch = function() {
       var _this = this;
 
-      return _.map(this.models, function(model) {
+      return this.map(function(model) {
         return model.fetch();
       });
     };
 
-    Pages.prototype.fetched = function() {
-      var _this = this;
-
-      return _.filter(this.models, function(model) {
-        return model.get('fetched');
-      });
-    };
-
     Pages.prototype.percentFetched = function() {
-      return Math.round(this.fetched().length / this.size() * 100);
+      return Math.round(this.where({
+        fetched: true
+      }).length / this.size() * 100);
     };
 
     Pages.prototype.setCurrentPage = function(pageIndex) {
-      if (!(pageIndex >= 0 && pageIndex < this.models.length)) {
+      if (!(pageIndex >= 0 && pageIndex < this.size())) {
         return;
       }
       this.currentPageIndex = pageIndex;
@@ -86,7 +79,7 @@
     };
 
     Pages.prototype.hasNextPage = function() {
-      return this.currentPageIndex < this.models.length - 1;
+      return this.currentPageIndex < this.size() - 1;
     };
 
     Pages.prototype.hasPreviousPage = function() {
